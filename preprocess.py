@@ -37,7 +37,7 @@ def get_args():
 
     parser.add_argument('--image-size', type=int, default=256, help='size for resizing images')
     parser.add_argument('--crop_size', type=int, default=224, help='size for randomly cropping images')
-    parser.add_argument('--batch-size', default=120, type=int, help='batch size')
+    parser.add_argument('--batch-size', default=80, type=int, help='batch size')
     parser.add_argument('--num-workers', default=16, type=int, help='number of workers')
 
     parser.add_argument('--threshold', default=0, type=int, help='map words appearing less than threshold times to unknown')
@@ -95,7 +95,7 @@ def build_dictionary(caption_files, tokenize):
         coco = COCO(filename)
         progress_bar = tqdm(coco.anns.values(), desc='| Build Dictionary', leave=False)
         for annotation in progress_bar:
-            tokens = tokenize(annotations['caption'].lower())
+            tokens = tokenize(annotation['caption'].lower())
             for word in tokens:
                 dictionary.add_word(word)
             dictionary.add_word(dictionary.eos_word)
