@@ -33,13 +33,6 @@ python preprocess.py --data $DATA_DIR --dest-dir $DEST_DIR
 ```
 Note that the resulting directory `DEST_DIR` will be quite large; the features for training and validation images take up 157GB and 77GB already. Experiments with HDF5 shows that there's a significant slowdown due to concurrent access with multiple data workers (see [this discussion](https://discuss.pytorch.org/t/hdf5-multi-threaded-alternative/6189) and [this note](https://cyrille.rossant.net/moving-away-hdf5/)). Hence, the preprocessing script saves CNN features of different images into separate files.
 
-Then, the following commands help build dictionaries and map tokens into indices:
-```bash
-DATA_PATH=data/iwslt14.tokenized.de-en
-python train.py --arch show_attend_tell --data /local/storage/bvt5/data/coco/caption-vgg --save-dir checkpoints/show_attend_tell
-python preprocess.py --source-lang de --target-lang en --train-prefix $DATA_PATH/train --valid-prefix $DATA_PATH/valid --test-prefix $DATA_PATH/test --dest-dir data-bin/iwslt14.tokenized.de-en
-```
-
 ### Training
 To get started with training a model on SQuAD, you might find the following commands helpful:
 ```bash
